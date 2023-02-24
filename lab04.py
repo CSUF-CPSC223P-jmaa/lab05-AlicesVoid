@@ -20,7 +20,11 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
-
+    sum = 0 
+    for i in range(1,n+1):
+        sum += sum + term(i)
+    
+    return sum
 
 def paths(m, n):
     """Return the number of paths from one corner of an
@@ -36,7 +40,13 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
-
+    factorial = lambda i: 1 if i==0 else i * factorial(i-1)
+    
+    n_choose_k = lambda n, k: factorial(n)/((factorial(k))*factorial(n-k))
+    
+    if n == m:
+        return n_choose_k(2(n-1),(m-1))  
+    return n_choose_k((m-1)*(n-1),(m-1))    
 
 def pascal(row, column):
     """Returns the value of the item in Pascal's Triangle
@@ -51,7 +61,16 @@ def pascal(row, column):
     6
     """
     "*** YOUR CODE HERE ***"
-
+    ceil       = lambda x: int(x+1) if int(x) != x else int(x)
+    factorial  = lambda i: 1 if i==0 else i * factorial(i-1)
+    n_choose_k = lambda n, k: factorial(n)/((factorial(k))*factorial(n-k))
+    
+    if column-1 > row:
+        return 0
+    elif column-1 == row or column == 0:
+        return 1
+    else:
+        return ceil(n_choose_k(row,column))
 
 def double_eights(n):
     """ Returns whether or not n has two digits in row that
@@ -75,3 +94,8 @@ def double_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if (n % 100) != 88:
+        if(n//10) < 10:
+            return False
+        return bool(False + double_eights(n//10))
+    return True
